@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Alice Decrypt</title>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <h2>NSA Message Decryptor</h2>
+    <textarea id="inputMessage" placeholder="Enter encrypted message...">
+wwaldaadicffenn</textarea
+    >
+    <button onclick="decrypt()">Decrypt</button>
+    <div>
+      <strong>Decrypted message:</strong>
+      <div id="output"></div>
+    </div>
+
+    <script>
+      function aliceDecrypt(message) {
+        const outputMessage = [];
+
+        for (let i = 0; i < message.length; i++) {
+          const currentChar = message[i];
+
+          // Если стек не пуст и верхний элемент совпадает с текущим символом
+          if (
+            outputMessage.length > 0 &&
+            outputMessage[outputMessage.length - 1] === currentChar
+          ) {
+            // Удаляем пару (не добавляем текущий и удаляем предыдущий)
+            outputMessage.pop();
+          } else {
+            // Добавляем символ в стек
+            outputMessage.push(currentChar);
+          }
+        }
+
+        // Собираем результат из стека
+        return outputMessage.join("");
+      }
+
+      function decrypt() {
+        const input = document.getElementById("inputMessage").value;
+        const output = aliceDecrypt(input);
+        document.getElementById("output").textContent = output;
+      }
+    </script>
+  </body>
+</html>
